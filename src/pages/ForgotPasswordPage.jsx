@@ -92,11 +92,7 @@ export default function ForgotPasswordPage() {
         variant="forgot"
         headline={brandHeadline}
         subtext="Forgot your password? No worries. Enter your email and we'll help you get back into your account."
-        chips={[
-          { icon: <ShieldIcon />, label: 'Secure password reset' },
-          { icon: <MailIcon />,   label: 'Link sent to your inbox' },
-          { icon: <StarIcon />,   label: 'Trusted by thousands' },
-        ]}
+        
         ariaLabel="Forgot password section"
       />
 

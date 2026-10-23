@@ -117,22 +117,7 @@ export function AuthCard({ heading, subtext, children, showTrust = false }) {
 
         {children}
 
-        {showTrust && (
-          <div className="trust-badges" aria-label="Security and trust information">
-            <div className="trust-item">
-              <ShieldIcon />
-              <span>256-bit SSL</span>
-            </div>
-            <div className="trust-item">
-              <ZapIcon />
-              <span>99.9% uptime</span>
-            </div>
-            <div className="trust-item">
-              <ShieldIcon />
-              <span>GDPR compliant</span>
-            </div>
-          </div>
-        )}
+        
       </div>
     </div>
   );

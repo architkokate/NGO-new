@@ -1,28 +1,19 @@
-import { LogoIcon, ShieldIcon, ZapIcon, StarIcon } from './Icons';
 import HeroPhotoComposition from './HeroPhotoComposition';
-
-const DEFAULT_CHIPS = [
-  { icon: <ShieldIcon />, label: 'Enterprise-grade security' },
-  { icon: <ZapIcon />,    label: 'Lightning fast' },
-  { icon: <StarIcon />,   label: 'Trusted by thousands' },
-];
+import sevavardhiniLogo from '../assets/sevavardhini-logo.png';
 
 /**
  * BrandPanel
  * The left half of the split-screen layout.
- * Accepts optional props to customise headline, subtext, chips, and photo hero variant per page.
  *
  * Props:
- *   headline     – JSX or string for the h1 (default: "Welcome back")
- *   subtext      – string for supporting paragraph
- *   chips        – array of { icon, label } (default: DEFAULT_CHIPS)
- *   ariaLabel    – section aria-label (default: "Welcome section")
- *   variant      – 'login' | 'forgot' | 'signup' (default: 'login')
+ *   headline  – JSX or string for the heading
+ *   subtext   – supporting paragraph
+ *   ariaLabel – section accessibility label
+ *   variant   – 'login' | 'forgot' | 'signup'
  */
 export default function BrandPanel({
   headline,
   subtext,
-  chips = DEFAULT_CHIPS,
   ariaLabel = 'Welcome section',
   variant = 'login',
 }) {
@@ -31,15 +22,16 @@ export default function BrandPanel({
       <div className="brand-content">
 
         {/* Logo */}
-        <div className="brand-logo" role="img" aria-label="Sevavardhini company logo">
-          <div className="brand-logo-mark">
-            <LogoIcon />
-          </div>
-          <span className="brand-logo-name">
-            Seva<span>vardhini</span>
-          </span>
-        </div>
-
+<div className="brand-logo">
+  <div className="brand-logo-container">
+    <img
+      src={sevavardhiniLogo}
+      alt="Sevavardhini logo"
+      className="brand-logo-image"
+    />
+    <span className="brand-logo-hindi">सेवावर्धिनी</span>
+  </div>
+</div>
         {/* Hero Photo Composition */}
         <div className="brand-illustration" aria-hidden="true">
           <HeroPhotoComposition variant={variant} />
@@ -48,7 +40,8 @@ export default function BrandPanel({
         {/* Headline */}
         {headline ?? (
           <h1 className="brand-headline">
-            Welcome<br />
+            Welcome
+            <br />
             <span>back</span>
           </h1>
         )}
@@ -56,18 +49,6 @@ export default function BrandPanel({
         {/* Supporting text */}
         {subtext && (
           <p className="brand-subtext">{subtext}</p>
-        )}
-
-        {/* Feature chips */}
-        {chips && chips.length > 0 && (
-          <div className="brand-features" role="list" aria-label="Key features">
-            {chips.map((chip) => (
-              <div key={chip.label} className="brand-chip" role="listitem">
-                {chip.icon}
-                <span>{chip.label}</span>
-              </div>
-            ))}
-          </div>
         )}
 
       </div>
