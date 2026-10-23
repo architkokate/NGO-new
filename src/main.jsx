@@ -1,3 +1,4 @@
+
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
@@ -5,8 +6,13 @@ import App from "./App";
 import { FONTS } from "./theme";
 import "./index.css";
 
-const root = createRoot(document.getElementById("root"));
-root.render(
+const rootElement = document.getElementById("root");
+
+if (!rootElement) {
+  throw new Error('Root element with id "root" was not found.');
+}
+
+createRoot(rootElement).render(
   <React.StrictMode>
     <BrowserRouter>
       <style>{FONTS}</style>
@@ -14,4 +20,3 @@ root.render(
     </BrowserRouter>
   </React.StrictMode>
 );
-

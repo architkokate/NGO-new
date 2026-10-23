@@ -16,20 +16,53 @@ import {
 import { todayStr } from "../services/storage";
 
 // Color palette adhering strictly to Rootline theme
-const PALETTE = {
-  saffron: "#F47B20",
-  golden: "#F9B233",
-  deepCharcoal: "#292524",
-  cream: "#FFF9F2",
-  white: "#FFFFFF",
-  mutedText: "#6B625A",
-  line: "#E8DFD3",
-  lineSoft: "#F2EBE1",
-  cardSoftTint: "#EAEFE8", // Soft light sage/cream card
-  cardWarmBeige: "#F2E8DC", // Warm beige card
-  cardMissingPill: "#F4E2CD", // Warm peach/golden pill for missing checkouts
-  dotGreen: "#3F7F52",
+
+const THEME = {
+  light: {
+    canvas: "#F8F5EF",
+    surface: "#FFFFFF",
+    ink: "#343746",
+    inkSoft: "#707382",
+    line: "#E6E0D6",
+
+    primary: "#4659A8",
+    primaryDeep: "#354681",
+
+    gold: "#B87520",
+    coral: "#BD594B",
+    success: "#397653",
+
+    railBg: "#354681",
+    railInk: "#FFFFFF",
+    chipBg: "#EDECF5",
+
+    accent: "#E89A3C",
+    accentSoft: "#FFF0DC",
+  },
+
+  dark: {
+    canvas: "#202331",
+    surface: "#2A2E3D",
+    ink: "#F5F2EC",
+    inkSoft: "#B9BBC7",
+    line: "#414556",
+
+    primary: "#9AA8EB",
+    primaryDeep: "#4659A8",
+
+    gold: "#F0C477",
+    coral: "#E58A7D",
+    success: "#80C69A",
+
+    railBg: "#191D2D",
+    railInk: "#F5F2EC",
+    chipBg: "#34384A",
+
+    accent: "#F0B66E",
+    accentSoft: "#493A2D",
+  },
 };
+
 
 function nowTime() {
   const d = new Date();
@@ -126,6 +159,20 @@ function getWeekDays(anchorDateStr) {
 }
 
 export default function AttendanceView({ t, data, patch, notify, sessionUser }) {
+    const PALETTE = {
+    white: "#FFFFFF",
+    cream: t.canvas,
+    saffron: t.primary,
+    golden: t.accent,
+    deepCharcoal: t.primaryDeep,
+    mutedText: t.inkSoft,
+    line: t.line,
+    lineSoft: t.line,
+    cardSoftTint: t.chipBg,
+    cardWarmBeige: t.accentSoft,
+    cardMissingPill: t.accentSoft,
+    dotGreen: t.success,
+  };
   const today = todayStr();
   const [showFullCalendar, setShowFullCalendar] = useState(false);
   const [calendarMonth, setCalendarMonth] = useState(() => today.slice(0, 7));
@@ -552,7 +599,7 @@ export default function AttendanceView({ t, data, patch, notify, sessionUser }) 
                 fontFamily: "Inter, sans-serif",
                 fontSize: 17,
                 fontWeight: 700,
-                color: PALETTE.deepCharcoal,
+                color: "#354681",
                 margin: "4px 0 4px 0",
               }}
             >
@@ -646,22 +693,22 @@ export default function AttendanceView({ t, data, patch, notify, sessionUser }) 
                 // Completed: Soft sage/cream pill
                 // Neutral: Soft sage/cream pill
                 let pillBg = PALETTE.cardSoftTint;
-                let pillColor = PALETTE.deepCharcoal;
+                let pillColor = "#354681";
                 let dotColor = null;
 
                 if (isToday) {
-                  pillBg = PALETTE.deepCharcoal;
-                  pillColor = PALETTE.white;
-                  dotColor = PALETTE.deepCharcoal;
-                } else if (isMissing) {
-                  pillBg = PALETTE.cardMissingPill;
-                  pillColor = PALETTE.deepCharcoal;
-                  dotColor = PALETTE.golden;
-                } else if (isCompleted) {
-                  pillBg = PALETTE.cardSoftTint;
-                  pillColor = PALETTE.deepCharcoal;
-                  dotColor = PALETTE.dotGreen;
-                }
+  pillBg = "#354681";
+  pillColor = PALETTE.white;
+  dotColor = "#E89A3C";
+} else if (isMissing) {
+  pillBg = PALETTE.cardMissingPill;
+  pillColor = "#354681";
+  dotColor = PALETTE.golden;
+} else if (isCompleted) {
+  pillBg = PALETTE.cardSoftTint;
+  pillColor = "#354681";
+  dotColor = PALETTE.dotGreen;
+}
 
                 return (
                   <div key={wDay.dateStr} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>

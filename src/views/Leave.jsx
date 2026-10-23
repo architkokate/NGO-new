@@ -45,14 +45,40 @@ export default function LeaveView({ t, data, patch, notify, pushNotification, se
   return (
     <div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))", gap: 12, marginBottom: 18 }}>
-        <StatCard t={t} label="Annual balance" value={Math.max(ANNUAL_ALLOWANCE - usedDays, 0)} icon={CalendarDays} />
-        <StatCard t={t} label="Days used" value={usedDays} icon={Clock3} />
-        <StatCard t={t} label="Pending requests" value={pending.length} icon={AlertTriangle} tone={t.gold} />
+       <StatCard
+  t={t}
+  label="Annual balance"
+  value={Math.max(ANNUAL_ALLOWANCE - usedDays, 0)}
+  icon={CalendarDays}
+/>
+
+<StatCard
+  t={t}
+  label="Days used"
+  value={usedDays}
+  icon={Clock3}
+/>
+
+<StatCard
+  t={t}
+  label="Pending requests"
+  value={pending.length}
+  icon={AlertTriangle}
+  tone={t.accent}
+/>
       </div>
 
       <ToolbarRow t={t}>
         <div style={{ fontFamily: "Fraunces", fontSize: 17, fontWeight: 600 }}>{canApprove ? "All requests" : "Your requests"}</div>
-        <Btn t={t} icon={Plus} onClick={() => setForm(true)} style={{ marginLeft: "auto" }}>Apply for Leave</Btn>
+        <Btn
+  t={t}
+  variant="accent"
+  icon={Plus}
+  onClick={() => setForm(true)}
+  style={{ marginLeft: "auto" }}
+>
+  Apply for Leave
+</Btn>
       </ToolbarRow>
 
       {list.length === 0 ? (
@@ -62,12 +88,52 @@ export default function LeaveView({ t, data, patch, notify, pushNotification, se
           {list.map((l) => {
             const p = employeeOf(l.user);
             return (
-              <Card key={l.id} t={t} style={{ padding: 14 }}>
+              <Card
+  key={l.id}
+  t={t}
+  style={{
+    padding: 16,
+    borderLeft: `3px solid ${
+      l.status === "Pending"
+        ? t.accent
+        : l.status === "Approved"
+        ? t.success
+        : t.coral
+    }`,
+  }}
+>
                 <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "flex-start" }}>
                   <div>
                     {canApprove && <div style={{ fontSize: 12.5, fontWeight: 700, color: t.ink, marginBottom: 3 }}>{p?.name}</div>}
-                    <div style={{ fontSize: 14, fontWeight: 700, color: t.ink }}>{l.type}</div>
-                    <div style={{ fontSize: 12, color: t.inkSoft, marginTop: 2 }}>{l.from} → {l.to} · {daysBetween(l.from, l.to)} day{daysBetween(l.from, l.to) === 1 ? "" : "s"}</div>
+                    <div
+  style={{
+    fontSize: 14,
+    fontWeight: 700,
+    color: t.primaryDeep,
+    marginBottom: 3,
+  }}
+>
+  {l.type}
+</div>
+                    <div
+  style={{
+    display: "flex",
+    alignItems: "center",
+    gap: 6,
+    flexWrap: "wrap",
+    fontSize: 12,
+    color: t.inkSoft,
+    marginTop: 4,
+  }}
+>
+  <CalendarDays size={13} color={t.primary} />
+  <span>
+    {l.from} → {l.to}
+  </span>
+  <span style={{ color: t.accent, fontWeight: 600 }}>
+    · {daysBetween(l.from, l.to)} day{daysBetween(l.from, l.to) === 1 ? "" : "s"}
+  </span>
+</div>
                     <div style={{ fontSize: 12.5, color: t.inkSoft, marginTop: 5 }}>{l.reason}</div>
                   </div>
                   <StatusChip status={l.status} t={t} />
@@ -126,7 +192,9 @@ function LeaveForm({ t, balance, onSave, onClose }) {
       {err && <div style={{ color: t.coral, fontSize: 12.5, marginBottom: 12 }}>{err}</div>}
       <div style={{ display: "flex", gap: 8, justifyContent: "flex-end", marginTop: 16 }}>
         <Btn t={t} variant="ghost" onClick={onClose}>Cancel</Btn>
-        <Btn t={t} icon={Check} onClick={submit}>Submit Request</Btn>
+        <Btn t={t} variant="accent" icon={Check} onClick={submit}>
+  Submit Request
+</Btn>
       </div>
     </Modal>
   );

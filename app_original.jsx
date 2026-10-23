@@ -236,12 +236,28 @@ const Card = ({ children, t, style }) => (
 
 const Btn = ({ children, onClick, t, variant = "primary", icon: Icon, style, type = "button", disabled }) => {
   const base = { fontFamily: "Inter", fontSize: 13.5, fontWeight: 600, padding: "9px 15px", borderRadius: 7, display: "inline-flex", alignItems: "center", gap: 7, cursor: disabled ? "not-allowed" : "pointer", border: "1px solid transparent", opacity: disabled ? 0.5 : 1, transition: "opacity .15s" };
-  const variants = {
-    primary: { background: t.primary, color: "#fff" },
-    ghost: { background: "transparent", color: t.ink, border: `1px solid ${t.line}` },
-    danger: { background: "transparent", color: t.coral, border: `1px solid ${t.coral}55` },
-    subtle: { background: t.chipBg, color: t.ink },
-  };
+  
+const variants = {
+  primary: { background: t.primary, color: "#fff" },
+  ghost: {
+    background: "transparent",
+    color: t.ink,
+    border: `1px solid ${t.line}`,
+  },
+  danger: {
+    background: "transparent",
+    color: t.coral,
+    border: `1px solid ${t.coral}55`,
+  },
+  subtle: { background: t.chipBg, color: t.ink },
+
+  // New orange button style
+  accent: {
+    background: t.accent,
+    color: "#FFFFFF",
+  },
+};
+
   return (
     <button type={type} disabled={disabled} onClick={onClick} style={{ ...base, ...variants[variant], ...style }}>
       {Icon && <Icon size={15} />}{children}
