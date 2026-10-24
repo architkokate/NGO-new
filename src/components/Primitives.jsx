@@ -73,8 +73,9 @@ export const PriorityChip = ({ p, t }) => {
   );
 };
 
-export const Card = ({ children, t, style }) => (
+export const Card = ({ children, t, style, ...props }) => (
   <div
+    {...props}
     style={{
       background: t.surface,
       border: `1px solid ${t.line}`,

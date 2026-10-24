@@ -49,23 +49,59 @@ export function DetailRow({ t, icon: Icon, label, value }) {
   );
 }
 
-export function StatCard({ label, value, t, icon: Icon, tone }) {
+export function StatCard({ label, value, t, icon: Icon, tone, remaining, hint }) {
   return (
-    <Card t={t} style={{ padding: "16px" }}>
-      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between" }}>
+    <Card
+      t={t}
+      title={hint}
+      style={{
+        padding: "16px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        minHeight: 90,
+        position: "relative",
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 8 }}>
         <Label t={t}>{label}</Label>
-        <Icon size={15} color={tone || t.inkSoft} />
+        {Icon && <Icon size={15} color={tone || t.inkSoft} style={{ flexShrink: 0 }} />}
       </div>
       <div
         style={{
-          fontFamily: "IBM Plex Mono",
-          fontSize: 26,
-          fontWeight: 600,
-          color: t.ink,
-          marginTop: 8,
+          display: "flex",
+          alignItems: "flex-end",
+          justifyContent: "space-between",
+          marginTop: 10,
+          gap: 6,
         }}
       >
-        {value}
+        <div
+          style={{
+            fontFamily: "IBM Plex Mono",
+            fontSize: 26,
+            fontWeight: 600,
+            color: tone || t.ink,
+            lineHeight: 1,
+          }}
+        >
+          {value}
+        </div>
+        {remaining !== undefined && remaining !== null && (
+          <div
+            style={{
+              fontFamily: "Inter",
+              fontSize: 11,
+              fontWeight: 500,
+              color: t.inkSoft,
+              textAlign: "right",
+              lineHeight: 1.2,
+              whiteSpace: "nowrap",
+            }}
+          >
+            {remaining}
+          </div>
+        )}
       </div>
     </Card>
   );

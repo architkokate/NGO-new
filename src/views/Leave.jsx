@@ -125,7 +125,8 @@ export default function LeaveView({
         <StatCard
           t={t}
           label="Casual Leave (CL)"
-          value={`${balances?.CL?.balance ?? 0} / ${balances?.CL?.entitled ?? 7}`}
+          value={balances?.CL?.entitled ?? 7}
+          remaining={`Remaining: ${balances?.CL?.balance ?? 0}`}
           icon={Coffee}
           hint="Max 3 consecutive days"
         />
@@ -133,7 +134,8 @@ export default function LeaveView({
         <StatCard
           t={t}
           label="Sick Leave (SL)"
-          value={`${balances?.SL?.balance ?? 0} / ${balances?.SL?.entitled ?? 15}`}
+          value={balances?.SL?.entitled ?? 15}
+          remaining={`Remaining: ${balances?.SL?.balance ?? 0}`}
           icon={HeartPulse}
           hint="Max cap 14 days"
         />
@@ -141,7 +143,8 @@ export default function LeaveView({
         <StatCard
           t={t}
           label="Earned Leave (EL)"
-          value={`${balances?.EL?.balance ?? 0} / ${balances?.EL?.entitled ?? 15}`}
+          value={balances?.EL?.entitled ?? 15}
+          remaining={`Remaining: ${balances?.EL?.balance ?? 0}`}
           icon={CalendarCheck}
           hint={
             balances?.isContract
@@ -153,7 +156,8 @@ export default function LeaveView({
         <StatCard
           t={t}
           label="Short Leave"
-          value={`${balances?.shortLeave?.remainingThisMonth ?? 0} / 2 left`}
+          value={balances?.shortLeave?.monthlyLimit ?? 2}
+          remaining={`Remaining: ${balances?.shortLeave?.remainingThisMonth ?? 0}`}
           icon={Clock3}
           hint="2 per calendar month"
         />
@@ -162,7 +166,8 @@ export default function LeaveView({
           <StatCard
             t={t}
             label="Maternity (ML)"
-            value={`${Math.round(balances.ML.balance / 7)} wks`}
+            value={`${Math.round((balances?.ML?.totalDays ?? 182) / 7)} wks`}
+            remaining={`Remaining: ${Math.round((balances?.ML?.balance ?? 0) / 7)} wks`}
             icon={Baby}
             hint="Up to 26 weeks paid"
           />
@@ -172,7 +177,8 @@ export default function LeaveView({
           <StatCard
             t={t}
             label="Paternity (PL)"
-            value={`${balances.PL.balance} days`}
+            value={`${balances?.PL?.totalDays ?? 5} days`}
+            remaining={`Remaining: ${balances?.PL?.balance ?? 0} days`}
             icon={Baby}
             hint="Avail within 90 days"
           />
