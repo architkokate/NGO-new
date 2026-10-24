@@ -66,6 +66,7 @@ export default function TasksView({
   const [priorityF, setPriorityF] = useState("All");
   const [editing, setEditing] = useState(null);
   const [confirmDel, setConfirmDel] = useState(null);
+  const [confirmComplete, setConfirmComplete] = useState(null);
   const [detail, setDetail] = useState(null);
 
   const tasks = data.tasks || [];
@@ -835,7 +836,7 @@ export default function TasksView({
                             : "secondary"
                         }
                         icon={Check}
-                        onClick={() => quickStatus(task, "Completed")}
+                        onClick={() => setConfirmComplete(task)}
                       >
                         Mark complete
                       </Btn>
@@ -927,6 +928,18 @@ export default function TasksView({
           text="Delete this task? This action cannot be undone."
           onCancel={() => setConfirmDel(null)}
           onConfirm={() => remove(confirmDel)}
+        />
+      )}
+
+      {confirmComplete && (
+        <ConfirmDialog
+          t={t}
+          text={`Mark "${confirmComplete.title}" as complete? This cannot be undone.`}
+          onCancel={() => setConfirmComplete(null)}
+          onConfirm={() => {
+            quickStatus(confirmComplete, "Completed");
+            setConfirmComplete(null);
+          }}
         />
       )}
     </div>

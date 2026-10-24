@@ -24,6 +24,7 @@ import { FONTS, useT } from "./theme";
 import { loadData, saveData } from "./services/storage";
 import { USERS, ROLE_LABEL, ROLE_NAV, CAN } from "./services/seeds";
 import { Avatar } from "./components/Primitives";
+import { ConfirmDialog } from "./components/Primitives";
 
 import Dashboard from "./views/Dashboard";
 import EmployeesView from "./views/Employees";
@@ -954,6 +955,7 @@ function RailContent({
   onLogout,
 }) {
   const railInk = t.railInk;
+  const [confirmSignOut, setConfirmSignOut] = React.useState(false);
 
   return (
     <>
@@ -1176,7 +1178,7 @@ function RailContent({
 
         {onLogout && (
           <button
-            onClick={onLogout}
+            onClick={() => setConfirmSignOut(true)}
             className="rl-nav-button"
             style={{
               display: "flex",
@@ -1198,6 +1200,18 @@ function RailContent({
             <LogOut size={16} />
             Sign out
           </button>
+        )}
+
+        {confirmSignOut && (
+          <ConfirmDialog
+            t={t}
+            text="Sign out of your account? You will need to sign in again to continue."
+            onCancel={() => setConfirmSignOut(false)}
+            onConfirm={() => {
+              setConfirmSignOut(false);
+              if (typeof onLogout === "function") onLogout();
+            }}
+          />
         )}
       </div>
     </>

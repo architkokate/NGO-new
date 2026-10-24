@@ -22,16 +22,17 @@ export default function BrandPanel({
       <div className="brand-content">
 
         {/* Logo */}
-<div className="brand-logo">
-  <div className="brand-logo-container">
-    <img
-      src={sevavardhiniLogo}
-      alt="Sevavardhini logo"
-      className="brand-logo-image"
-    />
-    <span className="brand-logo-hindi">सेवावर्धिनी</span>
-  </div>
-</div>
+        <div className="brand-logo">
+          <img
+            src={sevavardhiniLogo}
+            alt="Sevavardhini logo"
+            className="brand-logo-image"
+          />
+          <div className="brand-logo-text">
+            <span className="brand-logo-hindi">सेवावर्धिनी</span>
+            <span className="brand-logo-tagline">एक विश्वासार्ह सहकारी</span>
+          </div>
+        </div>
         {/* Hero Photo Composition */}
         <div className="brand-illustration" aria-hidden="true">
           <HeroPhotoComposition variant={variant} />

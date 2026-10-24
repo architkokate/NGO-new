@@ -18,6 +18,7 @@ import {
   StatusChip,
   Empty,
   Modal,
+  ConfirmDialog,
   Btn,
   Field,
   inputStyle,
@@ -39,6 +40,7 @@ export default function WorklogView({
   const canReview = CAN.manageTasks(sessionUser.role);
   const ownIds = personIdsOf(sessionUser);
   const [form, setForm] = useState(null);
+  const [confirmReview, setConfirmReview] = useState(null);
 
   const accent = t.accent || "#E89A3C";
   const subtle = t.inkSoft || "#707382";
@@ -622,7 +624,7 @@ export default function WorklogView({
                           t={t}
                           variant="accent"
                           icon={Check}
-                          onClick={() => review(w.id)}
+                          onClick={() => setConfirmReview(w)}
                           style={{ fontSize: 12, padding: "7px 11px" }}
                         >
                           Mark reviewed
@@ -645,6 +647,18 @@ export default function WorklogView({
           tasks={data.tasks}
           onSave={save}
           onClose={() => setForm(null)}
+        />
+      )}
+
+      {confirmReview && (
+        <ConfirmDialog
+          t={t}
+          text={`Mark this work log by ${confirmReview.user ? (data.employees || []).find(e => e.id === confirmReview.user)?.name || "this team member" : "this team member"} (${confirmReview.date || "unknown date"}) as reviewed?`}
+          onCancel={() => setConfirmReview(null)}
+          onConfirm={() => {
+            review(confirmReview.id);
+            setConfirmReview(null);
+          }}
         />
       )}
     </div>
